@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using PokerTDD.Cartas;
+using PokerTDD.Maos;
 
 namespace PokerTDD
 {
@@ -9,6 +10,12 @@ namespace PokerTDD
         {
             if (RoyalFlush.Validar(cartas))
                 return new RoyalFlush(cartas);
+
+            if (StraightFlush.Validar(cartas))
+                return new StraightFlush(cartas);
+
+            if (Quadra.Validar(cartas))
+                return new Quadra(cartas);
 
             return null;
         }

@@ -1,9 +1,10 @@
+using System.Collections.Generic;
 using ExpectedObjects;
 using PokerTDD.Cartas;
-using System.Collections.Generic;
+using PokerTDD.Maos;
 using Xunit;
 
-namespace PokerTDD.Test
+namespace PokerTDD.Test.Maos
 {
     public class StraightTeste
     {

@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using PokerTDD.Cartas;
+using PokerTDD.Maos;
 using Xunit;
 
-namespace PokerTDD.Test
+namespace PokerTDD.Test.Maos
 {
     public partial class QuadraTeste
     {

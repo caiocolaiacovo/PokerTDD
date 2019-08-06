@@ -1,11 +1,13 @@
-﻿using PokerTDD.Cartas;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using PokerTDD.Cartas;
 
-namespace PokerTDD
+namespace PokerTDD.Maos
 {
-    public class Quadra
+    public class Quadra : Mao
     {
+        public Quadra(List<Carta> cartas) : base((int)ValorDaMao.Quadra, cartas) { }
+
         public static bool Validar(List<Carta> cartas)
         {
             var grupos = cartas.GroupBy(c => c.Valor).Where(g => g.Count() == 4);

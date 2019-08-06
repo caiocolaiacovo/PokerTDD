@@ -1,9 +1,4 @@
-using System.Collections.Generic;
-using ExpectedObjects;
-using PokerTDD.Cartas;
-using Xunit;
-
-namespace PokerTDD.Test
+namespace PokerTDD.Test.Maos
 {
     public class MaoTeste
     {

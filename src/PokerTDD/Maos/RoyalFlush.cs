@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PokerTDD.Cartas;
 
-namespace PokerTDD
+namespace PokerTDD.Maos
 {
     public class RoyalFlush : Mao
     {

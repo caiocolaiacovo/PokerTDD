@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using PokerTDD.Cartas;
 
-namespace PokerTDD
+namespace PokerTDD.Maos
 {
     public abstract class Mao
     {

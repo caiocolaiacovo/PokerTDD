@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using PokerTDD.Cartas;
 using Xunit;
 
-namespace PokerTDD.Test
+namespace PokerTDD.Test.Maos
 {
     public class FullHouseTeste
     {

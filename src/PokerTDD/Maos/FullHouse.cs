@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using PokerTDD.Cartas;
 
-namespace PokerTDD
+namespace PokerTDD.Maos
 {
     public class FullHouse : Mao
     {

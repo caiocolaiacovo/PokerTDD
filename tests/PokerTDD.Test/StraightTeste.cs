@@ -5,19 +5,17 @@ using Xunit;
 
 namespace PokerTDD.Test
 {
-    public class StraightFlushTeste
+    public class StraightTeste
     {
-        public static Naipe _naipe = Naipe.Espadas;
-
         [Fact]
         public void Deve_criar_uma_mao()
         {
             var maoEsperada = new {
                 Cartas = new List<Carta>(),
-                Valor = (int)ValorDaMao.StraightFlush
+                Valor = (int)ValorDaMao.Straight
             };
 
-            var mao = new StraightFlush(new List<Carta>());
+            var mao = new Straight(new List<Carta>());
 
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
         }
@@ -26,7 +24,7 @@ namespace PokerTDD.Test
         [MemberData(nameof(DadosValidos))]
         public void Deve_ser_valido(List<Carta> cartas)
         {
-            var valido = StraightFlush.Validar(cartas);
+            var valido = Straight.Validar(cartas);
 
             Assert.True(valido);
         }
@@ -35,7 +33,7 @@ namespace PokerTDD.Test
         [MemberData(nameof(DadosInvalidos))]
         public void Deve_ser_invalido(List<Carta> cartas)
         {
-            var valido = StraightFlush.Validar(cartas);
+            var valido = Straight.Validar(cartas);
 
             Assert.False(valido);
         }
@@ -45,17 +43,17 @@ namespace PokerTDD.Test
             {
                 new object[] { 
                     new List<Carta> {
-                        new Cinco(_naipe), new Seis(_naipe), new Dois(_naipe), new Quatro(_naipe), new Tres(_naipe) 
+                        new Cinco(Naipe.Copa), new Seis(Naipe.Espadas), new Dois(Naipe.Copa), new Quatro(Naipe.Ouro), new Tres(Naipe.Ouro) 
                     }
                 },
                 new object[] { 
                     new List<Carta> {
-                        new Sete(_naipe), new Nove(_naipe), new Dez(_naipe), new Seis(_naipe), new Oito(_naipe) 
+                        new Sete(Naipe.Espadas), new Nove(Naipe.Copa), new Dez(Naipe.Copa), new Seis(Naipe.Paus), new Oito(Naipe.Espadas) 
                     }
                 },
                 new object[] { 
                     new List<Carta> {
-                        new Rei(_naipe), new Nove(_naipe), new Dama(_naipe), new Valete(_naipe), new Dez(_naipe) 
+                        new Rei(Naipe.Copa), new Nove(Naipe.Paus), new Dama(Naipe.Paus), new Valete(Naipe.Espadas), new Dez(Naipe.Copa) 
                     }
                 },
             };
@@ -63,19 +61,19 @@ namespace PokerTDD.Test
         public static IEnumerable<object[]> DadosInvalidos =>
             new List<object[]>
             {
-                new object[] {
+                new object[] { 
                     new List<Carta> {
-                        new Cinco(Naipe.Copa), new Seis(_naipe), new Dois(_naipe), new Quatro(_naipe), new Tres(_naipe)
+                        new Sete(Naipe.Copa), new Seis(Naipe.Espadas), new Dois(Naipe.Copa), new Quatro(Naipe.Ouro), new Tres(Naipe.Ouro) 
                     }
                 },
-                new object[] {
+                new object[] { 
                     new List<Carta> {
-                        new Sete(_naipe), new Nove(Naipe.Copa), new Dez(_naipe), new Seis(_naipe), new Oito(_naipe)
+                        new Sete(Naipe.Espadas), new Nove(Naipe.Copa), new Dez(Naipe.Copa), new Dama(Naipe.Paus), new Oito(Naipe.Espadas) 
                     }
                 },
-                new object[] {
+                new object[] { 
                     new List<Carta> {
-                        new Oito(_naipe), new Nove(_naipe), new Dama(_naipe), new Valete(_naipe), new Rei(_naipe)
+                        new Rei(Naipe.Copa), new Nove(Naipe.Paus), new Dama(Naipe.Paus), new As(Naipe.Espadas), new Dez(Naipe.Copa) 
                     }
                 },
             };

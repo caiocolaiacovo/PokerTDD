@@ -4,15 +4,12 @@ using PokerTDD.Cartas;
 
 namespace PokerTDD
 {
-    public class StraightFlush : Mao
+    public class Straight : Mao
     {
-        public StraightFlush(List<Carta> cartas) : base((int)ValorDaMao.StraightFlush, cartas) { }
+        public Straight(List<Carta> cartas) : base((int)ValorDaMao.Straight, cartas) { }
 
         public static bool Validar(List<Carta> cartas)
         {
-            if (!Flush.Validar(cartas))
-                return false;
-
             var cartasOrdenadas = cartas.OrderBy(c => c.Valor).ToList();
             var valorDaPrimeiraCarta = cartasOrdenadas.Select(c => c.Valor).First() - 1;
             var cartasEstaoEmSequencia = true;

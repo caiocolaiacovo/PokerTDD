@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using PokerTDD.Cartas;
 
 namespace PokerTDD
 {
     public class CartaAlta
     {
-        public static int MaiorValor(List<ICarta> list)
+        public static int MaiorValor(List<Carta> list)
         {
             return list.OrderByDescending(c => c.Valor).Select(c => c.Valor).First();
         }

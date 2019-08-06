@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ExpectedObjects;
 using PokerTDD.Cartas;
 using Xunit;
 
@@ -9,29 +10,44 @@ namespace PokerTDD.Test
         public static Naipe _naipe = Naipe.Paus;
 
         [Fact]
-        public void Deve_ser_valido()
+        public void Deve_criar_uma_mao()
         {
-            var valido = RoyalFlush.Validar(new List<Carta> { 
+            var maoEsperada = new {
+                Cartas = new List<Carta>(),
+                Valor = (int)ValorDaMao.RoyalFlush
+            };
+
+            var mao = new RoyalFlush(new List<Carta>());
+
+            maoEsperada.ToExpectedObject().ShouldMatch(mao);
+        }
+
+        [Fact]
+        public void Deve_ser_uma_mao_valida()
+        {
+            var mao = new List<Carta> { 
                 new As(_naipe),
                 new Valete(_naipe),
                 new Dez(_naipe),
                 new Rei(_naipe),
                 new Dama(_naipe)
-            });
+            };
+
+            var valido = RoyalFlush.Validar(mao);
 
             Assert.True(valido);
         }
 
         [Theory]
-        [MemberData(nameof(Dados))]
-        public void Deve_ser_invalido(List<Carta> cartas)
+        [MemberData(nameof(MaosInvalidas))]
+        public void Nao_deve_ser_uma_mao_valida(List<Carta> maoInvalida)
         {
-            var valido = RoyalFlush.Validar(cartas);
+            var valido = RoyalFlush.Validar(maoInvalida);
 
             Assert.False(valido);
         }
 
-        public static IEnumerable<object[]> Dados =>
+        public static IEnumerable<object[]> MaosInvalidas =>
         new List<object[]>
         {
             new object[] { 
@@ -44,19 +60,9 @@ namespace PokerTDD.Test
                     new As(_naipe), new Valete(Naipe.Espadas), new Dez(_naipe), new Rei(_naipe), new Dama(_naipe) 
                 }
             },
-            new object[] { 
-                new List<Carta> {
-                    new As(_naipe), new Valete(_naipe), new Dez(Naipe.Espadas), new Rei(_naipe), new Dama(_naipe) 
-                }
-            },
             new object[] {
                 new List<Carta> {
-                    new As(_naipe), new Valete(_naipe), new Dez(_naipe), new Rei(Naipe.Espadas), new Dama(_naipe) 
-                }
-            },
-            new object[] { 
-                new List<Carta> {
-                    new As(_naipe), new Valete(_naipe), new Dez(_naipe), new Rei(_naipe), new Dama(Naipe.Espadas) 
+                    new As(_naipe), new Valete(_naipe), new Dez(Naipe.Espadas), new Rei(_naipe), new Dama(_naipe) 
                 }
             }
         };

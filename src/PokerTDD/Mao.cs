@@ -1,14 +1,21 @@
 using System.Collections.Generic;
+using PokerTDD.Cartas;
 
 namespace PokerTDD
 {
-    public class Mao
+    public abstract class Mao
     {
-        public IReadOnlyCollection<ICarta> Cartas { get; private set; }
+        public int Valor { get; private set; }
+        public IReadOnlyCollection<Carta> Cartas { get; protected set; }
 
-        public Mao(ICarta carta1, ICarta carta2, ICarta carta3, ICarta carta4, ICarta carta5)
+        public Mao(int valor, List<Carta> cartas)
         {
-            Cartas = new List<ICarta> { carta1, carta2, carta3, carta4, carta5 };
+            Valor = valor;
+            Cartas = cartas;
         }
+    }
+
+    public interface IMao
+    {
     }
 }

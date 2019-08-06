@@ -4,13 +4,13 @@ using PokerTDD.Cartas;
 
 namespace PokerTDD
 {
-    public class RoyalFlush
+    public class RoyalFlush : Mao
     {
+        public RoyalFlush(List<Carta> cartas) : base((int)ValorDaMao.RoyalFlush, cartas) { }
+
         public static bool Validar(List<Carta> cartas)
         {
-            var numeroDeNaipes = cartas.Select(c => c.Naipe).Distinct().Count();
-
-            if (numeroDeNaipes > 1)
+            if(!Flush.Validar(cartas))
                 return false;
 
             var possuiUmDez = cartas.Any(c => c is Dez);

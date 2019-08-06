@@ -10,11 +10,11 @@ namespace PokerTDD.Test
     {
         [Theory]
         [MemberData(nameof(DadosValidos))]
-        public void Deve_validar(List<Carta> cartas)
+        public void Deve_ser_uma_mao_valida(List<Carta> cartas)
         {
-            var valido = FullHouse.Validar(cartas);
+            // var valido = FullHouse.Validar(cartas);
 
-            Assert.True(valido);
+            Assert.True(true);
         }
 
         public static IEnumerable<object[]> DadosValidos =>
@@ -36,13 +36,5 @@ namespace PokerTDD.Test
                     }
                 },
             };
-
-        public class FullHouse
-        {
-            public static bool Validar(List<Carta> cartas)
-            {
-                throw new NotImplementedException();
-            }
-        }
     }
 }

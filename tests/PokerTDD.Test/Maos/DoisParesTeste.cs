@@ -6,7 +6,7 @@ using Xunit;
 
 namespace PokerTDD.Test.Maos
 {
-    public class ParTeste
+    public class DoisParesTeste
     {
         [Fact]
         public void Deve_criar_uma_mao()
@@ -14,10 +14,10 @@ namespace PokerTDD.Test.Maos
             var maoEsperada = new
             {
                 Cartas = new List<Carta>(),
-                Valor = (int)ValorDaMao.Par
+                Valor = (int)ValorDaMao.DoisPares
             };
 
-            var mao = new Par(new List<Carta>());
+            var mao = new DoisPares(new List<Carta>());
 
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
         }
@@ -26,7 +26,7 @@ namespace PokerTDD.Test.Maos
         [MemberData(nameof(DadosValidos))]
         public void Deve_ser_valido(List<Carta> cartas)
         {
-            var valido = Par.Validar(cartas);
+            var valido = DoisPares.Validar(cartas);
 
             Assert.True(valido);
         }
@@ -35,7 +35,7 @@ namespace PokerTDD.Test.Maos
         [MemberData(nameof(DadosInvalidos))]
         public void Deve_ser_invalido(List<Carta> cartas)
         {
-            var valido = Par.Validar(cartas);
+            var valido = DoisPares.Validar(cartas);
 
             Assert.False(valido);
         }
@@ -45,17 +45,17 @@ namespace PokerTDD.Test.Maos
             {
                 new object[] { 
                     new List<Carta> {
-                        new Cinco(Naipe.Copa), new As(Naipe.Espadas), new Dama(Naipe.Copa), new Quatro(Naipe.Ouro), new Dama(Naipe.Ouro) 
+                        new Cinco(Naipe.Copa), new As(Naipe.Espadas), new Dama(Naipe.Copa), new As(Naipe.Ouro), new Dama(Naipe.Ouro) 
                     }
                 },
                 new object[] { 
                     new List<Carta> {
-                        new Sete(Naipe.Espadas), new Sete(Naipe.Copa), new Dez(Naipe.Copa), new Seis(Naipe.Paus), new Rei(Naipe.Espadas) 
+                        new Sete(Naipe.Espadas), new Sete(Naipe.Copa), new Dez(Naipe.Copa), new Dez(Naipe.Paus), new Rei(Naipe.Espadas) 
                     }
                 },
                 new object[] { 
                     new List<Carta> {
-                        new Rei(Naipe.Copa), new Rei(Naipe.Paus), new Dama(Naipe.Paus), new Valete(Naipe.Espadas), new As(Naipe.Copa) 
+                        new Rei(Naipe.Copa), new Rei(Naipe.Paus), new Dama(Naipe.Paus), new Dama(Naipe.Espadas), new As(Naipe.Copa) 
                     }
                 },
             };
@@ -65,17 +65,17 @@ namespace PokerTDD.Test.Maos
             {
                 new object[] { 
                     new List<Carta> {
-                        new Sete(Naipe.Copa), new Sete(Naipe.Espadas), new Dama(Naipe.Copa), new Sete(Naipe.Ouro), new As(Naipe.Ouro) 
+                        new Sete(Naipe.Copa), new Sete(Naipe.Espadas), new Dama(Naipe.Copa), new Valete(Naipe.Ouro), new As(Naipe.Ouro) 
                     }
                 },
                 new object[] { 
                     new List<Carta> {
-                        new Rei(Naipe.Espadas), new As(Naipe.Copa), new Valete(Naipe.Copa), new Dama(Naipe.Paus), new Quatro(Naipe.Espadas) 
+                        new Rei(Naipe.Espadas), new As(Naipe.Copa), new As(Naipe.Ouro), new As(Naipe.Paus), new As(Naipe.Espadas) 
                     }
                 },
                 new object[] { 
                     new List<Carta> {
-                        new Sete(Naipe.Copa), new Sete(Naipe.Paus), new Dama(Naipe.Paus), new Sete(Naipe.Espadas), new As(Naipe.Copa) 
+                        new Sete(Naipe.Copa), new Dois(Naipe.Paus), new Nove(Naipe.Paus), new Cinco(Naipe.Espadas), new As(Naipe.Copa) 
                     }
                 },
             };

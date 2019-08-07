@@ -21,6 +21,22 @@ namespace PokerTDD.Test.Maos
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
         }
 
+        [Fact]
+        public void Deve_obter_o_valor_da_carta_mais_alta_ao_criar_a_mao()
+        {
+            var cartaMaisAlta = new Seis(Naipe.Espadas);
+
+            var mao = new Straight(new List<Carta> {
+                new Cinco(Naipe.Copa), 
+                cartaMaisAlta, 
+                new Dois(Naipe.Copa), 
+                new Quatro(Naipe.Ouro), 
+                new Tres(Naipe.Ouro) 
+            });
+
+            Assert.Equal(cartaMaisAlta.Valor, mao.ValorDaCartaMaisAlta);
+        }
+
         [Theory]
         [MemberData(nameof(DadosValidos))]
         public void Deve_ser_valido(List<Carta> cartas)

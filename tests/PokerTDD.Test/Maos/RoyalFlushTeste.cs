@@ -13,12 +13,19 @@ namespace PokerTDD.Test.Maos
         [Fact]
         public void Deve_criar_uma_mao()
         {
+            var cartas = new List<Carta> {
+                new Rei(_naipe),
+                new Valete(_naipe),
+                new Dama(_naipe),
+                new As(_naipe),
+                new Dez(_naipe)
+            };
             var maoEsperada = new {
-                Cartas = new List<Carta>(),
+                Cartas = cartas,
                 Valor = (int)ValorDaMao.RoyalFlush
             };
 
-            var mao = new RoyalFlush(new List<Carta>());
+            var mao = new RoyalFlush(cartas);
 
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
         }

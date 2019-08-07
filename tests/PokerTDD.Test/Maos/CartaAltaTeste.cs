@@ -1,3 +1,9 @@
+using System.Collections.Generic;
+using ExpectedObjects;
+using PokerTDD.Cartas;
+using PokerTDD.Maos;
+using Xunit;
+
 namespace PokerTDD.Test.Maos
 {
     public class CartaAltaTeste
@@ -18,5 +24,28 @@ namespace PokerTDD.Test.Maos
 
         //     Assert.Equal(cartaEsperada.Valor, valor);
         // }
+
+        [Fact]
+        public void Deve_criar_uma_mao()
+        {
+            var naipe = Naipe.Espadas;
+            var cartas = new List<Carta>
+            {
+                new Dois(naipe),
+                new Seis(naipe),
+                new Sete(naipe),
+                new Dama(naipe),
+                new Rei(naipe)
+            };
+            var maoEsperada = new
+            {
+                Cartas = cartas,
+                Valor = (int)ValorDaMao.CartaAlta
+            };
+
+            var mao = new CartaAlta(cartas);
+
+            maoEsperada.ToExpectedObject().ShouldMatch(mao);
+        }
     }
 }

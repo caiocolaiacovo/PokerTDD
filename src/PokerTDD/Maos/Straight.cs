@@ -7,9 +7,9 @@ namespace PokerTDD.Maos
 {
     public class Straight : Mao
     {
-        public Straight(List<Carta> cartas) : base((int)ValorDaMao.Straight, cartas) 
+        public Straight(List<Carta> cartas) : base((int)ValorDaMao.Straight, cartas)
         {
-            CartaMaisAlta = new Seis(Naipe.Ouro);
+            CartaMaisAlta = ObterCartaMaisAlta();
         }
 
         public static bool Validar(List<Carta> cartas)
@@ -29,6 +29,11 @@ namespace PokerTDD.Maos
             }
 
             return cartasEstaoEmSequencia;
+        }
+
+        private Carta ObterCartaMaisAlta()
+        {
+            return Cartas.OrderByDescending(c => c.Valor).First();
         }
     }
 }

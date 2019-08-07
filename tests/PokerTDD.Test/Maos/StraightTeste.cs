@@ -11,12 +11,20 @@ namespace PokerTDD.Test.Maos
         [Fact]
         public void Deve_criar_uma_mao()
         {
+            var cartas = new List<Carta>
+            {
+                new Cinco(Naipe.Copa),
+                new Seis(Naipe.Espadas),
+                new Dois(Naipe.Copa),
+                new Quatro(Naipe.Ouro),
+                new Tres(Naipe.Ouro)
+            };
             var maoEsperada = new {
-                Cartas = new List<Carta>(),
+                Cartas = cartas,
                 Valor = (int)ValorDaMao.Straight
             };
 
-            var mao = new Straight(new List<Carta>());
+            var mao = new Straight(cartas);
 
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
         }
@@ -27,11 +35,11 @@ namespace PokerTDD.Test.Maos
             var cartaMaisAlta = new Seis(Naipe.Espadas);
 
             var mao = new Straight(new List<Carta> {
-                new Cinco(Naipe.Copa), 
-                cartaMaisAlta, 
-                new Dois(Naipe.Copa), 
-                new Quatro(Naipe.Ouro), 
-                new Tres(Naipe.Ouro) 
+                new Cinco(Naipe.Copa),
+                cartaMaisAlta,
+                new Dois(Naipe.Copa),
+                new Quatro(Naipe.Ouro),
+                new Tres(Naipe.Ouro)
             });
 
             Assert.Equal(cartaMaisAlta.Valor, mao.ValorDaCartaMaisAlta);

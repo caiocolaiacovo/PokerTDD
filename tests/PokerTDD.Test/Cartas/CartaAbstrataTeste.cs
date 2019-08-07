@@ -13,6 +13,7 @@ namespace PokerTDD.Test.Cartas
         {
             public CartaAbstrata(int valor, Naipe naipe) : base(valor, naipe) { }
         }
+
         public CartaAbstrataTeste()
         {
             _valor = 1;

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using PokerTDD.Cartas;
 
 namespace PokerTDD.Maos
@@ -9,8 +11,14 @@ namespace PokerTDD.Maos
         public IReadOnlyCollection<Carta> Cartas { get; protected set; }
         protected Carta CartaMaisAlta { get; set; }
 
-        public Mao(int valor, List<Carta> cartas)
+        protected Mao(int valor, List<Carta> cartas)
         {
+            if (valor <= 0)
+                throw new Exception("É obrigatório informar o Valor");
+
+            if (cartas == null || !cartas.Any())
+                throw new Exception("É obrigatório informar as Cartas");
+
             Valor = valor;
             Cartas = cartas;
         }

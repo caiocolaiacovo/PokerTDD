@@ -7,8 +7,8 @@ namespace PokerTDD.Maos
 {
     public abstract class Mao
     {
-        public int Valor { get; private set; }
-        public IReadOnlyCollection<Carta> Cartas { get; protected set; }
+        public int Valor { get; }
+        public IReadOnlyCollection<Carta> Cartas { get; }
         protected Carta CartaMaisAlta { get; set; }
 
         protected Mao(int valor, List<Carta> cartas)
@@ -24,12 +24,5 @@ namespace PokerTDD.Maos
         }
 
         public int ValorDaCartaMaisAlta => CartaMaisAlta?.Valor ?? 0;
-
-        // protected abstract int ObterCartaMaisAltaNaMao();
-        // protected abstract int ValorDaCartaMaisAltaNaMao();
-    }
-
-    public interface IMao
-    {
     }
 }

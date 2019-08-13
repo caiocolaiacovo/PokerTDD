@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ExpectedObjects;
 using PokerTDD.Cartas;
@@ -27,6 +28,25 @@ namespace PokerTDD.Test.Maos
             var mao = new Straight(cartas);
 
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
+        }
+
+        [Fact]
+        public void Nao_deve_criar_uma_mao_com_cartas_invalidas()
+        {
+            const string mensagemEsperada = "As cartas informadas não são válidas para esta mão";
+            var cartas = new List<Carta>
+            {
+                new Sete(Naipe.Copa),
+                new Seis(Naipe.Espadas),
+                new Dois(Naipe.Copa),
+                new Quatro(Naipe.Ouro),
+                new Tres(Naipe.Ouro)
+            };
+
+            Action acao = () => new Straight(cartas);
+
+            var mensagem = Assert.Throws<Exception>(acao).Message;
+            Assert.Equal(mensagemEsperada, mensagem);
         }
 
         [Fact]
@@ -86,9 +106,15 @@ namespace PokerTDD.Test.Maos
         public static IEnumerable<object[]> DadosInvalidos =>
             new List<object[]>
             {
-                new object[] { 
+                new object[] {
+                    null
+                },
+                new object[] {
+                    new List<Carta>()
+                },
+                new object[] {
                     new List<Carta> {
-                        new Sete(Naipe.Copa), new Seis(Naipe.Espadas), new Dois(Naipe.Copa), new Quatro(Naipe.Ouro), new Tres(Naipe.Ouro) 
+                        new Sete(Naipe.Copa), new Seis(Naipe.Espadas), new Dois(Naipe.Copa), new Quatro(Naipe.Ouro), new Tres(Naipe.Ouro)
                     }
                 },
                 new object[] { 

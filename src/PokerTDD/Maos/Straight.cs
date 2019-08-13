@@ -9,11 +9,17 @@ namespace PokerTDD.Maos
     {
         public Straight(List<Carta> cartas) : base((int)ValorDaMao.Straight, cartas)
         {
+            if (!Validar(cartas))
+                throw new Exception("As cartas informadas não são válidas para esta mão");
+
             CartaMaisAlta = ObterCartaMaisAlta();
         }
 
         public static bool Validar(List<Carta> cartas)
         {
+            if (cartas == null || !cartas.Any())
+                return false;
+
             var cartasOrdenadas = cartas.OrderBy(c => c.Valor).ToList();
             var valorDaPrimeiraCarta = cartasOrdenadas.Select(c => c.Valor).First();
             var cartasEstaoEmSequencia = true;

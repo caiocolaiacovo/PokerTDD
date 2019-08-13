@@ -8,23 +8,6 @@ namespace PokerTDD.Test.Maos
 {
     public class CartaAltaTeste
     {
-        // [Fact]
-        // public void Deve_retornar_a_carta_de_maior_valor()
-        // {
-        //     var naipe = Naipe.Ouro;
-        //     var cartaEsperada = new Seis(naipe);
-
-        //     var valor = CartaAlta.MaiorValor(new List<ICarta> { 
-        //         new Cinco(naipe), 
-        //         new Dois(naipe), 
-        //         new Quatro(naipe), 
-        //         new Seis(naipe), 
-        //         new Tres(naipe) 
-        //     });
-
-        //     Assert.Equal(cartaEsperada.Valor, valor);
-        // }
-
         [Fact]
         public void Deve_criar_uma_mao()
         {
@@ -46,6 +29,23 @@ namespace PokerTDD.Test.Maos
             var mao = new CartaAlta(cartas);
 
             maoEsperada.ToExpectedObject().ShouldMatch(mao);
+        }
+
+        [Fact]
+        public void Deve_obter_o_valor_da_carta_mais_alta_ao_criar_a_mao()
+        {
+            var naipe = Naipe.Ouro;
+            var cartaEsperada = new Dama(naipe);
+
+            var mao = new CartaAlta(new List<Carta> {
+                     new Seis(naipe),
+                     new Dois(naipe),
+                     new Quatro(naipe),
+                     new Dama(naipe),
+                     new Valete(naipe)
+                 });
+
+            Assert.Equal(cartaEsperada.Valor, mao.ValorDaCartaMaisAlta);
         }
     }
 }

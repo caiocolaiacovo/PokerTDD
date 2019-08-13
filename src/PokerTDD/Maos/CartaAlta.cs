@@ -8,11 +8,12 @@ namespace PokerTDD.Maos
     {
         public CartaAlta(List<Carta> cartas) : base((int)ValorDaMao.CartaAlta, cartas)
         {
+            CartaMaisAlta = ObterCartaMaisAlta();
         }
 
-        public static int MaiorValor(List<Carta> list)
+        private Carta ObterCartaMaisAlta()
         {
-            return list.OrderByDescending(c => c.Valor).Select(c => c.Valor).First();
+            return Cartas.OrderByDescending(c => c.Valor).First();
         }
     }
 }

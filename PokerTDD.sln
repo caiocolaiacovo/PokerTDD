@@ -3,14 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{921D0F8A-C5F0-424E-BD03-9F8D1B9E3B8A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerTDD", "src\PokerTDD\PokerTDD.csproj", "{DC0D828C-8178-4799-B1AF-8982CAEBE08C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{297BB3F4-D1D0-49B9-B7E7-C6DBEB3758D1}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerTDD.Test", "tests\PokerTDD.Test\PokerTDD.Test.csproj", "{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,35 +14,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Debug|x64.Build.0 = Debug|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Debug|x86.Build.0 = Debug|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Release|x64.ActiveCfg = Release|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Release|x64.Build.0 = Release|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Release|x86.ActiveCfg = Release|Any CPU
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C}.Release|x86.Build.0 = Release|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Debug|x64.Build.0 = Debug|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Debug|x86.Build.0 = Debug|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Release|x64.ActiveCfg = Release|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Release|x64.Build.0 = Release|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Release|x86.ActiveCfg = Release|Any CPU
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6}.Release|x86.Build.0 = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{DC0D828C-8178-4799-B1AF-8982CAEBE08C} = {921D0F8A-C5F0-424E-BD03-9F8D1B9E3B8A}
-		{4E2210D2-ADEB-43E6-BA55-799D24FF6EC6} = {297BB3F4-D1D0-49B9-B7E7-C6DBEB3758D1}
 	EndGlobalSection
 EndGlobal

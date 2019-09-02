@@ -229,11 +229,94 @@ namespace PokerTDD.Teste
         }
 
         [Fact]
-        public void Jogador_1_deve_ganhar_no_desempate_com_um_full_house()
+        public void Jogador_1_deve_ganhar_no_desempate_com_um_full_house_e_uma_trinca_de_maior_valor()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "6H", "6S", "6C", "KD", "KH" };
-            var maoDoJogador2 = new[] { "2H", "AS", "AC", "2D", "2C" };
+            var maoDoJogador1 = new[] { "9H", "AS", "AC", "9D", "9C" };
+            var maoDoJogador2 = new[] { "8H", "8S", "8C", "AD", "AH" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_2_deve_ganhar_no_desempate_com_um_full_house_e_uma_trinca_de_maior_valor()
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "6H", "6S", "KC", "KD", "10H" };
+            var maoDoJogador2 = new[] { "JH", "6D", "6C", "JD", "JC" };
+            
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("2H", "6H", "AH", "KH", "3H")]
+        [InlineData("AC", "7C", "10C", "QC", "JC")]
+        [InlineData("10D", "KD", "5D", "JD", "QD")]
+        public void Jogador_1_deve_ganhar_com_um_flush(
+            string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1
+        )
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] {
+                carta1DoJogador1,
+                carta2DoJogador1,
+                carta3DoJogador1,
+                carta4DoJogador1,
+                carta5DoJogador1
+            };
+            var maoDoJogador2 = new[] { "AD", "QH", "QC", "2S", "9D" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("QC", "10C", "AC", "KC", "7C")]
+        [InlineData("10H", "7H", "2H", "4H", "AH")]
+        [InlineData("10D", "KD", "5D", "JD", "QD")]
+        public void Jogador_2_deve_ganhar_com_um_flush(
+            string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2
+        )
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador2 = new[] {
+                carta1DoJogador2,
+                carta2DoJogador2,
+                carta3DoJogador2,
+                carta4DoJogador2,
+                carta5DoJogador2
+            };
+            var maoDoJogador1 = new[] { "KC", "10S", "2C", "2S", "9H" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_1_deve_ganhar_no_desempate_com_um_flush()
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] { "2H", "3H", "6H", "9H", "AH" };
+            var maoDoJogador2 = new[] { "QC", "10C", "JC", "KC", "7C" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_2_deve_ganhar_no_desempate_com_um_flush()
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "2H", "3H", "6H", "9H", "JH" };
+            var maoDoJogador2 = new[] { "QC", "10C", "JC", "KC", "7C" };
 
             var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
 
@@ -312,9 +395,36 @@ namespace PokerTDD.Teste
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
+
+                    return "Jogador 2";
+                }
+
+                var jogador1PossuiUmFlush = ValidarFlush(maoDoJogador1);
+                var jogador2PossuiUmFlush = ValidarFlush(maoDoJogador2);
+
+                if (jogador1PossuiUmFlush && !jogador2PossuiUmFlush)
+                    return "Jogador 1";
+
+                if (jogador2PossuiUmFlush && !jogador1PossuiUmFlush)
+                    return "Jogador 2";
+
+                if (jogador1PossuiUmFlush && jogador2PossuiUmFlush)
+                {
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Flush");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Flush");
+
+                    if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
+                        return "Jogador 1";
                 }
 
                 return "Nenhum";
+            }
+
+            private static bool ValidarFlush(string[] maoDoJogador)
+            {
+                var cartasSaoDoMesmoNaipe = maoDoJogador.GroupBy(m => m.Last()).Count() == 1;
+
+                return cartasSaoDoMesmoNaipe;
             }
 
             private static bool ValidarFullHouse(string[] maoDoJogador)
@@ -340,7 +450,7 @@ namespace PokerTDD.Teste
 
             private static int ObterMaiorCartaDaMao(string[] maoDoJogador, string mao)
             {
-                if (mao.Equals("StraightFlush")) 
+                if (mao.Equals("StraightFlush") || mao.Equals("Flush")) 
                 {
                     var valorDaMaiorCarta = 0;
 
@@ -366,7 +476,11 @@ namespace PokerTDD.Teste
 
                 if (mao.Equals("FullHouse"))
                 {
-                    //
+                    var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+
+                    var trinca = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 3).First();
+
+                    return trinca.First();
                 }
 
                 return 0;
@@ -375,6 +489,9 @@ namespace PokerTDD.Teste
             private static bool ValidarStraightFlush(string[] maoDoJogador)
             {
                 var cartasSaoDoMesmoNaipe = maoDoJogador.GroupBy(m => m.Last()).Count() == 1;
+
+                if (!cartasSaoDoMesmoNaipe)
+                    return false;
 
                 var cartasOrdenadas = maoDoJogador.Select(ObterCartaSemNaipe).OrderBy(c => c).ToList();
 

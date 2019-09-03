@@ -323,6 +323,333 @@ namespace PokerTDD.Teste
             Assert.Equal(ganhadorEsperado, ganhador);
         }
 
+        [Theory]
+        [InlineData("2C", "6D", "5H", "3S", "4C")]
+        [InlineData("9C", "8D", "7S", "6H", "10H")]
+        [InlineData("10D", "QC", "KD", "JH", "9C")]
+        public void Jogador_1_deve_ganhar_com_um_straight(
+            string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1
+        )
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] {
+                carta1DoJogador1,
+                carta2DoJogador1,
+                carta3DoJogador1,
+                carta4DoJogador1,
+                carta5DoJogador1
+            };
+            var maoDoJogador2 = new[] { "KC", "10S", "2C", "2S", "9H" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("7H", "JC", "8C", "9D", "10S")]
+        [InlineData("3S", "2D", "6C", "4H", "5S")]
+        [InlineData("5D", "6C", "7D", "8H", "9C")]
+        public void Jogador_2_deve_ganhar_com_um_straight(
+            string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2
+        )
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "AC", "QS", "8D", "10S", "QH" };
+            var maoDoJogador2 = new[] {
+                carta1DoJogador2,
+                carta2DoJogador2,
+                carta3DoJogador2,
+                carta4DoJogador2,
+                carta5DoJogador2
+            };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_1_deve_ganhar_no_desempate_com_um_straight()
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] { "10C", "9S", "8H", "6H", "7D" };
+            var maoDoJogador2 = new[] { "6C", "9S", "8H", "5H", "7D" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_2_deve_ganhar_no_desempate_com_um_straight()
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "2C", "3S", "4H", "5S", "6D" };
+            var maoDoJogador2 = new[] { "7H", "3S", "4H", "5H", "6S" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("3S", "2D", "3C", "7H", "3S")]
+        [InlineData("KH", "KD", "3C", "7H", "KS")]
+        [InlineData("AS", "2D", "3C", "AD", "AC")]
+        public void Jogador_1_deve_ganhar_com_uma_trinca(
+            string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1
+        )
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] {
+                carta1DoJogador1,
+                carta2DoJogador1,
+                carta3DoJogador1,
+                carta4DoJogador1,
+                carta5DoJogador1
+            };
+            var maoDoJogador2 = new[] { "2D", "6S", "AS", "QH", "QK" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("10S", "10D", "10C", "7H", "3S")]
+        [InlineData("AH", "AD", "AC", "QD", "JS")]
+        [InlineData("KS", "KD", "KC", "AD", "2C")]
+        public void Jogador_2_deve_ganhar_com_uma_trinca(
+            string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2
+        )
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "KS", "3H", "AS", "10C", "9D" };
+            var maoDoJogador2 = new[] {
+                carta1DoJogador2,
+                carta2DoJogador2,
+                carta3DoJogador2,
+                carta4DoJogador2,
+                carta5DoJogador2
+            };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_1_deve_ganhar_no_desempate_com_uma_trinca()
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] { "2D", "3S", "5H", "5C", "5D" };
+            var maoDoJogador2 = new[] { "2C", "3H", "4D", "4H", "4C" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_2_deve_ganhar_no_desempate_com_uma_trinca()
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "QS", "KC", "2S", "2C", "2D" };
+            var maoDoJogador2 = new[] { "4S", "5C", "AS", "AC", "AD" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("2S", "2D", "10C", "10H", "3S")]
+        [InlineData("AH", "AD", "KC", "QD", "KS")]
+        [InlineData("7S", "7D", "KC", "AD", "AC")]
+        public void Jogador_1_deve_ganhar_com_dois_pares(
+            string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1
+        )
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] {
+                carta1DoJogador1,
+                carta2DoJogador1,
+                carta3DoJogador1,
+                carta4DoJogador1,
+                carta5DoJogador1
+            };
+            var maoDoJogador2 = new[] { "7C", "QH", "AS", "10C", "10S" };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("QD", "QS", "AC", "10H", "AS")]
+        [InlineData("QS", "KD", "KC", "QD", "2S")]
+        [InlineData("10S", "AS", "10C", "AD", "KC")]
+        public void Jogador_2_deve_ganhar_com_dois_pares(
+            string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2
+        )
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "AS", "10H", "5C", "10D", "KS" };
+            var maoDoJogador2 = new[] {
+                carta1DoJogador2,
+                carta2DoJogador2,
+                carta3DoJogador2,
+                carta4DoJogador2,
+                carta5DoJogador2
+            };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_1_deve_ganhar_no_desempate_com_dois_pares()
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] { "3H", "2C", "2S", "3S", "KD" };
+            var maoDoJogador2 = new[] { "4S", "QC", "4H", "3C", "3D" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_2_deve_ganhar_no_desempate_com_dois_pares()
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "7C", "7D", "10S", "10H", "KD" };
+            var maoDoJogador2 = new[] { "7S", "7H", "10C", "10D", "AD" };
+            
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("QS", "2D", "QC", "10H", "3S")]
+        [InlineData("AH", "AD", "KC", "QD", "JS")]
+        [InlineData("7S", "3D", "8C", "KD", "KC")]
+        public void Jogador_1_deve_ganhar_com_um_par(
+            string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1
+        )
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] {
+                carta1DoJogador1,
+                carta2DoJogador1,
+                carta3DoJogador1,
+                carta4DoJogador1,
+                carta5DoJogador1
+            };
+            var maoDoJogador2 = new[] { "2S", "10H", "AS", "JD", "QD" };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("4D", "KD", "QC", "2H", "2S")]
+        [InlineData("6H", "AD", "KC", "QD", "QS")]
+        [InlineData("7S", "3D", "8C", "KD", "KC")]
+        public void Jogador_2_deve_ganhar_com_um_par(
+            string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2
+        )
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "AS", "QH", "6S", "10D", "JD" };
+            var maoDoJogador2 = new[] {
+                carta1DoJogador2,
+                carta2DoJogador2,
+                carta3DoJogador2,
+                carta4DoJogador2,
+                carta5DoJogador2
+            };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_1_deve_ganhar_no_desempate_com_um_par()
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] { "3H", "2C", "10D", "10S", "KD" };
+            var maoDoJogador2 = new[] { "10C", "10H", "4H", "3C", "2D" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Fact]
+        public void Jogador_2_deve_ganhar_no_desempate_com_um_par()
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "QH", "2C", "QD", "5S", "KD" };
+            var maoDoJogador2 = new[] { "10C", "AH", "QS", "QC", "2D" };
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("7C", "2H", "JC", "10H", "AS")]
+        [InlineData("2H", "6D", "KC", "7D", "JS")]
+        [InlineData("2C", "3D", "8C", "QD", "5D")]
+        public void Jogador_1_deve_ganhar_com_a_carta_mais_alta(
+            string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1
+        )
+        {
+            const string ganhadorEsperado = "Jogador 1";
+            var maoDoJogador1 = new[] {
+                carta1DoJogador1,
+                carta2DoJogador1,
+                carta3DoJogador1,
+                carta4DoJogador1,
+                carta5DoJogador1
+            };
+            var maoDoJogador2 = new[] { "3D", "9H", "2S", "JD", "4D" };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
+        [Theory]
+        [InlineData("7C", "2H", "KC", "10H", "6S")]
+        [InlineData("2H", "6D", "4C", "7D", "QS")]
+        [InlineData("JC", "3D", "8C", "6D", "5D")]
+        public void Jogador_2_deve_ganhar_com_a_carta_mais_alta(
+            string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2
+        )
+        {
+            const string ganhadorEsperado = "Jogador 2";
+            var maoDoJogador1 = new[] { "6D", "10H", "2S", "7D", "4D" };
+            var maoDoJogador2 = new[] {
+                carta1DoJogador2,
+                carta2DoJogador2,
+                carta3DoJogador2,
+                carta4DoJogador2,
+                carta5DoJogador2
+            };
+    
+            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+
+            Assert.Equal(ganhadorEsperado, ganhador);
+        }
+
         public class AnalisadorDeJogada
         {
             public static string ObterGanhador(string[] maoDoJogador1, string[] maoDoJogador2)
@@ -415,9 +742,143 @@ namespace PokerTDD.Teste
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
+
+                    return "Jogador 2";
                 }
 
-                return "Nenhum";
+                var jogador1PossuiUmStraight = ValidarStraight(maoDoJogador1);
+                var jogador2PossuiUmStraight = ValidarStraight(maoDoJogador2);
+
+                if (jogador1PossuiUmStraight && !jogador2PossuiUmStraight)
+                    return "Jogador 1";
+
+                if (jogador2PossuiUmStraight && !jogador1PossuiUmStraight)
+                    return "Jogador 2";
+
+                if (jogador1PossuiUmStraight && jogador2PossuiUmStraight)
+                {
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Straight");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Straight");
+
+                    if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
+                        return "Jogador 1";
+
+                    return "Jogador 2";
+                }
+
+                var jogador1PossuiUmaTrinca = ValidarTrinca(maoDoJogador1);
+                var jogador2PossuiUmaTrinca = ValidarTrinca(maoDoJogador2);
+
+                if (jogador1PossuiUmaTrinca && !jogador2PossuiUmaTrinca)
+                    return "Jogador 1";
+
+                if (jogador2PossuiUmaTrinca && !jogador1PossuiUmaTrinca)
+                    return "Jogador 2";
+
+                if (jogador1PossuiUmaTrinca && jogador2PossuiUmaTrinca)
+                {
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Trinca");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Trinca");
+
+                    if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
+                        return "Jogador 1";
+
+                    return "Jogador 2";
+                }
+
+                var jogador1PossuiDoisPares = ValidarDoisPares(maoDoJogador1);
+                var jogador2PossuiDoisPares = ValidarDoisPares(maoDoJogador2);
+
+                if (jogador1PossuiDoisPares && !jogador2PossuiDoisPares)
+                    return "Jogador 1";
+
+                if (jogador2PossuiDoisPares && !jogador1PossuiDoisPares)
+                    return "Jogador 2";
+
+                if (jogador1PossuiDoisPares && jogador2PossuiDoisPares)
+                {
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "DoisPares");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "DoisPares");
+
+                    if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
+                        return "Jogador 1";
+
+                    return "Jogador 2";
+                }
+                
+                var jogador1PossuiUmPar = ValidarUmPar(maoDoJogador1);
+                var jogador2PossuiUmPar = ValidarUmPar(maoDoJogador2);
+
+                if (jogador1PossuiUmPar && !jogador2PossuiUmPar)
+                    return "Jogador 1";
+
+                if (jogador2PossuiUmPar && !jogador1PossuiUmPar)
+                    return "Jogador 2";
+
+                if (jogador1PossuiUmPar && jogador2PossuiUmPar)
+                {
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "UmPar");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "UmPar");
+
+                    if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
+                        return "Jogador 1";
+
+                    return "Jogador 2";
+                }
+
+                var cartaAltaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "CartaAlta");
+                var cartaAltaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "CartaAlta");
+
+                if (cartaAltaDoJogador1 > cartaAltaDoJogador2)
+                    return "Jogador 1";
+
+                return "Jogador 2";
+            }
+
+            private static bool ValidarUmPar(string[] maoDoJogador)
+            {
+                var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+
+                var possuiUmPar = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Count() == 1;
+                var naoPossuiOutrasCartasRepetidas = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 1).Count() == 3;
+
+                return possuiUmPar && naoPossuiOutrasCartasRepetidas;
+            }
+
+            private static bool ValidarDoisPares(string[] maoDoJogador)
+            {
+                var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+
+                var possuiDoisPares = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Count() == 2;
+
+                return possuiDoisPares;
+            }
+
+            private static bool ValidarTrinca(string[] maoDoJogador)
+            {
+                var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+
+                var possuiUmaTrinca = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 3).Any();
+                var possuiUmPar = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Any();
+
+                return possuiUmaTrinca && !possuiUmPar;
+            }
+
+            private static bool ValidarStraight(string[] maoDoJogador)
+            {
+                var cartasOrdenadas = maoDoJogador.Select(ObterCartaSemNaipe).OrderBy(c => c).ToList();
+
+                var valor = cartasOrdenadas.First();
+
+                foreach (var carta in cartasOrdenadas)
+                {
+                    if (valor != carta)
+                        return false;
+                    
+                    valor++;
+                }
+
+                return true;
             }
 
             private static bool ValidarFlush(string[] maoDoJogador)
@@ -450,7 +911,8 @@ namespace PokerTDD.Teste
 
             private static int ObterMaiorCartaDaMao(string[] maoDoJogador, string mao)
             {
-                if (mao.Equals("StraightFlush") || mao.Equals("Flush")) 
+                if (mao.Equals("StraightFlush") || mao.Equals("Flush") || 
+                mao.Equals("Straight") || mao.Equals("DoisPares") || mao.Equals("UmPar") || mao.Equals("CartaAlta")) 
                 {
                     var valorDaMaiorCarta = 0;
 
@@ -475,6 +937,15 @@ namespace PokerTDD.Teste
                 }
 
                 if (mao.Equals("FullHouse"))
+                {
+                    var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+
+                    var trinca = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 3).First();
+
+                    return trinca.First();
+                }
+
+                if (mao.Equals("Trinca"))
                 {
                     var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 

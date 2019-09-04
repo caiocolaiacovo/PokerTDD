@@ -3,13 +3,15 @@ using System.Collections.Generic;
 namespace PokerTDD
 {
     public class Jogador {
-        public string Nome { get; set; }
-        public IEnumerable<string> Cartas { get; set; }
+        public string Nome { get; }
+        public IEnumerable<string> Cartas { get; }
+        public Mao Mao { get; }
 
-        public Jogador(string nome, IEnumerable<string> cartas)
+        public Jogador(string nome, IEnumerable<string> cartas, Mao mao = null)
         {
             Nome = nome;
             Cartas = cartas;
+            Mao = mao;
         }
     }
 }

@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 
 namespace PokerTDD
 {
     public abstract class Mao
     {
+        public IEnumerable<string> Cartas { get; protected set; }
+
         public static int ObterCartaSemNaipe(string carta)
         {
             var cartaSemNaipe = carta.Remove(carta.Length - 1, 1);

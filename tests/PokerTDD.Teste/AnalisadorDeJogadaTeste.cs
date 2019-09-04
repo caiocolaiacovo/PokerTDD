@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -10,10 +11,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ser_o_ganhador_com_um_royal_flush()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "10H", "JH", "QH", "KH", "AH" };
-            var maoDoJogador2 = new[] { "2C", "3S", "8S", "8D", "QD" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "10H", "JH", "QH", "KH", "AH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "2C", "3S", "8S", "8D", "QD" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -22,10 +25,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ser_o_ganhador_com_um_royal_flush()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "2C", "3S", "8S", "8D", "QD" };
-            var maoDoJogador2 = new[] { "10H", "JH", "QH", "KH", "AH" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "2C", "3S", "8S", "8D", "QD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "10H", "JH", "QH", "KH", "AH" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -34,10 +39,12 @@ namespace PokerTDD.Teste
         public void Deve_resultar_em_empate_caso_ambos_os_jogadores_possuam_um_royal_flush()
         {
             const string ganhadorEsperado = "Empate";
-            var maoDoJogador1 = new[] { "10D", "JD", "QD", "KD", "AD" };
-            var maoDoJogador2 = new[] { "10H", "JH", "QH", "KH", "AH" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "10D", "JD", "QD", "KD", "AD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "10H", "JH", "QH", "KH", "AH" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -51,16 +58,18 @@ namespace PokerTDD.Teste
             string carta1DoJogador1, string carta2DoJogador1, string carta3DoJogador1, string carta4DoJogador1, string carta5DoJogador1)
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { 
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1 
-            };
-            var maoDoJogador2 = new[] { "2C", "3S", "8S", "8D", "QD" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1  
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "2C", "3S", "8S", "8D", "QD" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -74,16 +83,18 @@ namespace PokerTDD.Teste
             string carta1DoJogador2, string carta2DoJogador2, string carta3DoJogador2, string carta4DoJogador2, string carta5DoJogador2)
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "2C", "3S", "8S", "8D", "JD" };
-            var maoDoJogador2 = new[] { 
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2 
-            };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "2C", "3S", "8S", "8D", "JD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2 
+                 }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -92,10 +103,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_um_straight_flush()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "KD", "9D", "JD", "10D", "QD" };
-            var maoDoJogador2 = new[] { "5H", "2H", "6H", "3H", "4H" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "KD", "9D", "JD", "10D", "QD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "5H", "2H", "6H", "3H", "4H" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -104,10 +117,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_um_straight_flush()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "2D", "6D", "4D", "3D", "5D" };
-            var maoDoJogador2 = new[] { "9H", "JH", "10H", "8H", "7H" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "2D", "6D", "4D", "3D", "5D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "9H", "JH", "10H", "8H", "7H" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -121,16 +136,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1, 
-                carta2DoJogador1, 
-                carta3DoJogador1, 
-                carta4DoJogador1, 
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "9H", "3S", "10C", "4D", "QH" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1, 
+                    carta2DoJogador1, 
+                    carta3DoJogador1, 
+                    carta4DoJogador1, 
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "9H", "3S", "10C", "4D", "QH" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -144,16 +161,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "KH", "2S", "7C", "10D", "QH" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2, 
-                carta2DoJogador2, 
-                carta3DoJogador2, 
-                carta4DoJogador2, 
-                carta5DoJogador2
-            };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "KH", "2S", "7C", "10D", "QH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2, 
+                    carta2DoJogador2, 
+                    carta3DoJogador2, 
+                    carta4DoJogador2, 
+                    carta5DoJogador2
+                }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -162,10 +181,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_uma_quadra()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "AH", "AS", "AC", "AD", "QH" };
-            var maoDoJogador2 = new[] { "10H", "10S", "10C", "10D", "2H" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "AH", "AS", "AC", "AD", "QH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "10H", "10S", "10C", "10D", "2H" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -174,10 +195,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_uma_quadra()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "6H", "6S", "6C", "6D", "KH" };
-            var maoDoJogador2 = new[] { "10H", "10S", "10C", "10D", "JH" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "6H", "6S", "6C", "6D", "KH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "10H", "10S", "10C", "10D", "JH" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -191,16 +214,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1, 
-                carta2DoJogador1, 
-                carta3DoJogador1, 
-                carta4DoJogador1, 
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "6H", "10S", "QC", "4D", "AH" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1, 
+                    carta2DoJogador1, 
+                    carta3DoJogador1, 
+                    carta4DoJogador1, 
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] {"6H", "10S", "QC", "4D", "AH" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -214,16 +239,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "10D", "QS", "4C", "4D", "7H" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2, 
-                carta2DoJogador2, 
-                carta3DoJogador2, 
-                carta4DoJogador2, 
-                carta5DoJogador2
-            };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "10D", "QS", "4C", "4D", "7H" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2, 
+                    carta2DoJogador2, 
+                    carta3DoJogador2, 
+                    carta4DoJogador2, 
+                    carta5DoJogador2
+                }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -232,10 +259,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_um_full_house_e_uma_trinca_de_maior_valor()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "9H", "AS", "AC", "9D", "9C" };
-            var maoDoJogador2 = new[] { "8H", "8S", "8C", "AD", "AH" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "9H", "AS", "AC", "9D", "9C" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "8H", "8S", "8C", "AD", "AH" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -244,11 +273,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_um_full_house_e_uma_trinca_de_maior_valor()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "6H", "6S", "KC", "KD", "10H" };
-            var maoDoJogador2 = new[] { "JH", "6D", "6C", "JD", "JC" };
-            
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "6H", "6S", "KC", "KD", "10H" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "JH", "6D", "6C", "JD", "JC" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -262,16 +292,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "AD", "QH", "QC", "2S", "9D" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "AD", "QH", "QC", "2S", "9D" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -285,16 +317,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2
-            };
-            var maoDoJogador1 = new[] { "KC", "10S", "2C", "2S", "9H" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "KC", "10S", "2C", "2S", "9H" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2
+                }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -303,10 +337,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_um_flush()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "2H", "3H", "6H", "9H", "AH" };
-            var maoDoJogador2 = new[] { "QC", "10C", "JC", "KC", "7C" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "2H", "3H", "6H", "9H", "AH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "QC", "10C", "JC", "KC", "7C" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -315,10 +351,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_um_flush()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "2H", "3H", "6H", "9H", "JH" };
-            var maoDoJogador2 = new[] { "QC", "10C", "JC", "KC", "7C" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "2H", "3H", "6H", "9H", "JH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "QC", "10C", "JC", "KC", "7C" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -332,16 +370,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "KC", "10S", "2C", "2S", "9H" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "KC", "10S", "2C", "2S", "9H" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -355,16 +395,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "AC", "QS", "8D", "10S", "QH" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2
-            };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "AC", "QS", "8D", "10S", "QH" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2
+                }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -373,10 +415,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_um_straight()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "10C", "9S", "8H", "6H", "7D" };
-            var maoDoJogador2 = new[] { "6C", "9S", "8H", "5H", "7D" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "10C", "9S", "8H", "6H", "7D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "6C", "9S", "8H", "5H", "7D" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -385,10 +429,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_um_straight()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "2C", "3S", "4H", "5S", "6D" };
-            var maoDoJogador2 = new[] { "7H", "3S", "4H", "5H", "6S" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "2C", "3S", "4H", "5S", "6D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "7H", "3S", "4H", "5H", "6S" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -402,16 +448,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "2D", "6S", "AS", "QH", "QK" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "2D", "6S", "AS", "QH", "QK" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -425,16 +473,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "KS", "3H", "AS", "10C", "9D" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2
-            };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "KS", "3H", "AS", "10C", "9D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2
+                }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -443,10 +493,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_uma_trinca()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "2D", "3S", "5H", "5C", "5D" };
-            var maoDoJogador2 = new[] { "2C", "3H", "4D", "4H", "4C" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "2D", "3S", "5H", "5C", "5D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "2C", "3H", "4D", "4H", "4C" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -455,10 +507,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_uma_trinca()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "QS", "KC", "2S", "2C", "2D" };
-            var maoDoJogador2 = new[] { "4S", "5C", "AS", "AC", "AD" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "QS", "KC", "2S", "2C", "2D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "4S", "5C", "AS", "AC", "AD" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -472,16 +526,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "7C", "QH", "AS", "10C", "10S" };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] {
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "7C", "QH", "AS", "10C", "10S" }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -495,16 +551,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "AS", "10H", "5C", "10D", "KS" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2
-            };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "AS", "10H", "5C", "10D", "KS" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] {
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2
+                }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -513,10 +571,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_dois_pares()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "3H", "2C", "2S", "3S", "KD" };
-            var maoDoJogador2 = new[] { "4S", "QC", "4H", "3C", "3D" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "3H", "2C", "2S", "3S", "KD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "4S", "QC", "4H", "3C", "3D" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -525,11 +585,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_dois_pares()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "7C", "7D", "10S", "10H", "KD" };
-            var maoDoJogador2 = new[] { "7S", "7H", "10C", "10D", "AD" };
-            
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "7C", "7D", "10S", "10H", "KD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "7S", "7H", "10C", "10D", "AD" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -543,16 +604,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "2S", "10H", "AS", "JD", "QD" };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "2S", "10H", "AS", "JD", "QD" }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -566,16 +629,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "AS", "QH", "6S", "10D", "JD" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2
-            };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "AS", "QH", "6S", "10D", "JD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2
+                }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -584,10 +649,12 @@ namespace PokerTDD.Teste
         public void Jogador_1_deve_ganhar_no_desempate_com_um_par()
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] { "3H", "2C", "10D", "10S", "KD" };
-            var maoDoJogador2 = new[] { "10C", "10H", "4H", "3C", "2D" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "3H", "2C", "10D", "10S", "KD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "10C", "10H", "4H", "3C", "2D" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -596,10 +663,12 @@ namespace PokerTDD.Teste
         public void Jogador_2_deve_ganhar_no_desempate_com_um_par()
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "QH", "2C", "QD", "5S", "KD" };
-            var maoDoJogador2 = new[] { "10C", "AH", "QS", "QC", "2D" };
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "QH", "2C", "QD", "5S", "KD" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { "10C", "AH", "QS", "QC", "2D" }).Construir();
 
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -613,16 +682,18 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 1";
-            var maoDoJogador1 = new[] {
-                carta1DoJogador1,
-                carta2DoJogador1,
-                carta3DoJogador1,
-                carta4DoJogador1,
-                carta5DoJogador1
-            };
-            var maoDoJogador2 = new[] { "3D", "9H", "2S", "JD", "4D" };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] { 
+                    carta1DoJogador1,
+                    carta2DoJogador1,
+                    carta3DoJogador1,
+                    carta4DoJogador1,
+                    carta5DoJogador1
+                }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome("Jogador 2")
+                .ComCartas(new[] { "3D", "9H", "2S", "JD", "4D" }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
@@ -636,26 +707,28 @@ namespace PokerTDD.Teste
         )
         {
             const string ganhadorEsperado = "Jogador 2";
-            var maoDoJogador1 = new[] { "6D", "10H", "2S", "7D", "4D" };
-            var maoDoJogador2 = new[] {
-                carta1DoJogador2,
-                carta2DoJogador2,
-                carta3DoJogador2,
-                carta4DoJogador2,
-                carta5DoJogador2
-            };
-    
-            var ganhador = AnalisadorDeJogada.ObterGanhador(maoDoJogador1, maoDoJogador2);
+            var jogador1 = JogadorBuilder.Instancia().ComNome("Jogador 1")
+                .ComCartas(new[] { "6D", "10H", "2S", "7D", "4D" }).Construir();
+            var jogador2 = JogadorBuilder.Instancia().ComNome(ganhadorEsperado)
+                .ComCartas(new[] {
+                    carta1DoJogador2,
+                    carta2DoJogador2,
+                    carta3DoJogador2,
+                    carta4DoJogador2,
+                    carta5DoJogador2
+                }).Construir();
+
+            var ganhador = AnalisadorDeJogada.ObterGanhador(jogador1, jogador2);
 
             Assert.Equal(ganhadorEsperado, ganhador);
         }
 
         public class AnalisadorDeJogada
         {
-            public static string ObterGanhador(string[] maoDoJogador1, string[] maoDoJogador2)
+            public static string ObterGanhador(Jogador jogador1, Jogador jogador2)
             {
-                var jogador1PossuiUmRoyalFlush = ValidarRoyalFlush(maoDoJogador1);
-                var jogador2PossuiUmRoyalFlush = ValidarRoyalFlush(maoDoJogador2);
+                var jogador1PossuiUmRoyalFlush = ValidarRoyalFlush(jogador1.Cartas);
+                var jogador2PossuiUmRoyalFlush = ValidarRoyalFlush(jogador2.Cartas);
 
                 if (jogador1PossuiUmRoyalFlush && !jogador2PossuiUmRoyalFlush)
                     return "Jogador 1";
@@ -666,8 +739,8 @@ namespace PokerTDD.Teste
                 if (jogador1PossuiUmRoyalFlush && jogador2PossuiUmRoyalFlush)
                     return "Empate";
 
-                var jogador1PossuiUmStraightFlush = ValidarStraightFlush(maoDoJogador1);
-                var jogador2PossuiUmStraightFlush = ValidarStraightFlush(maoDoJogador2);
+                var jogador1PossuiUmStraightFlush = ValidarStraightFlush(jogador1.Cartas);
+                var jogador2PossuiUmStraightFlush = ValidarStraightFlush(jogador2.Cartas);
 
                 if (jogador1PossuiUmStraightFlush && !jogador2PossuiUmStraightFlush)
                     return "Jogador 1";
@@ -677,8 +750,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmStraightFlush && jogador2PossuiUmStraightFlush)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "StraightFlush");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "StraightFlush");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "StraightFlush");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "StraightFlush");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -686,8 +759,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var jogador1PossuiUmaQuadra = ValidarQuadra(maoDoJogador1);
-                var jogador2PossuiUmaQuadra = ValidarQuadra(maoDoJogador2);
+                var jogador1PossuiUmaQuadra = ValidarQuadra(jogador1.Cartas);
+                var jogador2PossuiUmaQuadra = ValidarQuadra(jogador2.Cartas);
 
                 if (jogador1PossuiUmaQuadra && !jogador2PossuiUmaQuadra)
                     return "Jogador 1";
@@ -697,8 +770,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmaQuadra && jogador2PossuiUmaQuadra)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Quadra");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Quadra");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "Quadra");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "Quadra");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -706,8 +779,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var jogador1PossuiUmFullHouse = ValidarFullHouse(maoDoJogador1);
-                var jogador2PossuiUmFullHouse = ValidarFullHouse(maoDoJogador2);
+                var jogador1PossuiUmFullHouse = ValidarFullHouse(jogador1.Cartas);
+                var jogador2PossuiUmFullHouse = ValidarFullHouse(jogador2.Cartas);
 
                 if (jogador1PossuiUmFullHouse && !jogador2PossuiUmFullHouse)
                     return "Jogador 1";
@@ -717,8 +790,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmFullHouse && jogador2PossuiUmFullHouse)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "FullHouse");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "FullHouse");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "FullHouse");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "FullHouse");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -726,8 +799,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var jogador1PossuiUmFlush = ValidarFlush(maoDoJogador1);
-                var jogador2PossuiUmFlush = ValidarFlush(maoDoJogador2);
+                var jogador1PossuiUmFlush = ValidarFlush(jogador1.Cartas);
+                var jogador2PossuiUmFlush = ValidarFlush(jogador2.Cartas);
 
                 if (jogador1PossuiUmFlush && !jogador2PossuiUmFlush)
                     return "Jogador 1";
@@ -737,8 +810,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmFlush && jogador2PossuiUmFlush)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Flush");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Flush");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "Flush");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "Flush");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -746,8 +819,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var jogador1PossuiUmStraight = ValidarStraight(maoDoJogador1);
-                var jogador2PossuiUmStraight = ValidarStraight(maoDoJogador2);
+                var jogador1PossuiUmStraight = ValidarStraight(jogador1.Cartas);
+                var jogador2PossuiUmStraight = ValidarStraight(jogador2.Cartas);
 
                 if (jogador1PossuiUmStraight && !jogador2PossuiUmStraight)
                     return "Jogador 1";
@@ -757,8 +830,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmStraight && jogador2PossuiUmStraight)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Straight");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Straight");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "Straight");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "Straight");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -766,8 +839,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var jogador1PossuiUmaTrinca = ValidarTrinca(maoDoJogador1);
-                var jogador2PossuiUmaTrinca = ValidarTrinca(maoDoJogador2);
+                var jogador1PossuiUmaTrinca = ValidarTrinca(jogador1.Cartas);
+                var jogador2PossuiUmaTrinca = ValidarTrinca(jogador2.Cartas);
 
                 if (jogador1PossuiUmaTrinca && !jogador2PossuiUmaTrinca)
                     return "Jogador 1";
@@ -777,8 +850,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmaTrinca && jogador2PossuiUmaTrinca)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "Trinca");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "Trinca");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "Trinca");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "Trinca");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -786,8 +859,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var jogador1PossuiDoisPares = ValidarDoisPares(maoDoJogador1);
-                var jogador2PossuiDoisPares = ValidarDoisPares(maoDoJogador2);
+                var jogador1PossuiDoisPares = ValidarDoisPares(jogador1.Cartas);
+                var jogador2PossuiDoisPares = ValidarDoisPares(jogador2.Cartas);
 
                 if (jogador1PossuiDoisPares && !jogador2PossuiDoisPares)
                     return "Jogador 1";
@@ -797,8 +870,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiDoisPares && jogador2PossuiDoisPares)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "DoisPares");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "DoisPares");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "DoisPares");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "DoisPares");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -806,8 +879,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
                 
-                var jogador1PossuiUmPar = ValidarUmPar(maoDoJogador1);
-                var jogador2PossuiUmPar = ValidarUmPar(maoDoJogador2);
+                var jogador1PossuiUmPar = ValidarUmPar(jogador1.Cartas);
+                var jogador2PossuiUmPar = ValidarUmPar(jogador2.Cartas);
 
                 if (jogador1PossuiUmPar && !jogador2PossuiUmPar)
                     return "Jogador 1";
@@ -817,8 +890,8 @@ namespace PokerTDD.Teste
 
                 if (jogador1PossuiUmPar && jogador2PossuiUmPar)
                 {
-                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "UmPar");
-                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "UmPar");
+                    var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "UmPar");
+                    var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "UmPar");
 
                     if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
                         return "Jogador 1";
@@ -826,8 +899,8 @@ namespace PokerTDD.Teste
                     return "Jogador 2";
                 }
 
-                var cartaAltaDoJogador1 = ObterMaiorCartaDaMao(maoDoJogador1, "CartaAlta");
-                var cartaAltaDoJogador2 = ObterMaiorCartaDaMao(maoDoJogador2, "CartaAlta");
+                var cartaAltaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas, "CartaAlta");
+                var cartaAltaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas, "CartaAlta");
 
                 if (cartaAltaDoJogador1 > cartaAltaDoJogador2)
                     return "Jogador 1";
@@ -835,7 +908,7 @@ namespace PokerTDD.Teste
                 return "Jogador 2";
             }
 
-            private static bool ValidarUmPar(string[] maoDoJogador)
+            private static bool ValidarUmPar(IEnumerable<string> maoDoJogador)
             {
                 var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 
@@ -845,7 +918,7 @@ namespace PokerTDD.Teste
                 return possuiUmPar && naoPossuiOutrasCartasRepetidas;
             }
 
-            private static bool ValidarDoisPares(string[] maoDoJogador)
+            private static bool ValidarDoisPares(IEnumerable<string> maoDoJogador)
             {
                 var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 
@@ -854,7 +927,7 @@ namespace PokerTDD.Teste
                 return possuiDoisPares;
             }
 
-            private static bool ValidarTrinca(string[] maoDoJogador)
+            private static bool ValidarTrinca(IEnumerable<string> maoDoJogador)
             {
                 var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 
@@ -864,7 +937,7 @@ namespace PokerTDD.Teste
                 return possuiUmaTrinca && !possuiUmPar;
             }
 
-            private static bool ValidarStraight(string[] maoDoJogador)
+            private static bool ValidarStraight(IEnumerable<string> maoDoJogador)
             {
                 var cartasOrdenadas = maoDoJogador.Select(ObterCartaSemNaipe).OrderBy(c => c).ToList();
 
@@ -881,14 +954,14 @@ namespace PokerTDD.Teste
                 return true;
             }
 
-            private static bool ValidarFlush(string[] maoDoJogador)
+            private static bool ValidarFlush(IEnumerable<string> maoDoJogador)
             {
                 var cartasSaoDoMesmoNaipe = maoDoJogador.GroupBy(m => m.Last()).Count() == 1;
 
                 return cartasSaoDoMesmoNaipe;
             }
 
-            private static bool ValidarFullHouse(string[] maoDoJogador)
+            private static bool ValidarFullHouse(IEnumerable<string> maoDoJogador)
             {
                 var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 
@@ -900,7 +973,7 @@ namespace PokerTDD.Teste
                 return possuiUmaTrinca && possuiUmPar;
             }
 
-            private static bool ValidarQuadra(string[] maoDoJogador)
+            private static bool ValidarQuadra(IEnumerable<string> maoDoJogador)
             {
                 var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 
@@ -909,7 +982,7 @@ namespace PokerTDD.Teste
                 return possuiQuatroCartasIguais;
             }
 
-            private static int ObterMaiorCartaDaMao(string[] maoDoJogador, string mao)
+            private static int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador, string mao)
             {
                 if (mao.Equals("StraightFlush") || mao.Equals("Flush") || 
                 mao.Equals("Straight") || mao.Equals("DoisPares") || mao.Equals("UmPar") || mao.Equals("CartaAlta")) 
@@ -957,7 +1030,7 @@ namespace PokerTDD.Teste
                 return 0;
             }
 
-            private static bool ValidarStraightFlush(string[] maoDoJogador)
+            private static bool ValidarStraightFlush(IEnumerable<string> maoDoJogador)
             {
                 var cartasSaoDoMesmoNaipe = maoDoJogador.GroupBy(m => m.Last()).Count() == 1;
 
@@ -1003,7 +1076,7 @@ namespace PokerTDD.Teste
                 return Convert.ToInt32(cartaSemNaipe);
             }
 
-            private static bool ValidarRoyalFlush(string[] maoDoJogador)
+            private static bool ValidarRoyalFlush(IEnumerable<string> maoDoJogador)
             {
                 var cartasSaoDoMesmoNaipe = maoDoJogador.GroupBy(m => m.Last()).Count() == 1;
 
@@ -1013,6 +1086,51 @@ namespace PokerTDD.Teste
                     maoDoJogador.Any(m => m.Contains("Q")) &&
                     maoDoJogador.Any(m => m.Contains("K")) &&
                     maoDoJogador.Any(m => m.Contains("A"));
+            }
+        }
+
+        public class Jogador {
+            public string Nome { get; set; }
+            public IEnumerable<string> Cartas { get; set; }
+
+            public Jogador(string nome, List<string> cartas)
+            {
+                Nome = nome;
+                Cartas = cartas;
+            }
+        }
+
+        public class JogadorBuilder {
+            private List<string> Cartas;
+
+            private string Nome = "Jogador 1";
+
+            public static JogadorBuilder Instancia()
+            {
+                return new JogadorBuilder();
+            }
+
+            public JogadorBuilder ComNome(string nome)
+            {
+                Nome = nome;
+                return this;
+            }
+
+            public JogadorBuilder ComCartas(List<string> cartas)
+            {
+                Cartas = cartas;
+                return this;
+            }
+
+            public JogadorBuilder ComCartas(IEnumerable<string> cartas)
+            {
+                Cartas = cartas.ToList();
+                return this;
+            }
+
+            public Jogador Construir()
+            {
+                return new Jogador(Nome, Cartas);
             }
         }
     }

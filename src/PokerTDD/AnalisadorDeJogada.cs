@@ -237,8 +237,6 @@ namespace PokerTDD
             return 0;
         }
 
-        
-
         private static int ObterCartaSemNaipe(string carta)
         {
             var cartaSemNaipe = carta.Remove(carta.Length - 1, 1);

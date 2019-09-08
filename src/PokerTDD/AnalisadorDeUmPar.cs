@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace PokerTDD
 {
-    public class UmPar : Mao
+    public class AnalisadorDeUmPar : Mao
     {
-        public static bool ValidarUmPar(IEnumerable<string> maoDoJogador)
+        public static bool EhUmaMaoValida(IEnumerable<string> cartas)
         {
-            var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+            var cartasSemNaipe = cartas.Select(ObterCartaSemNaipe);
 
             var possuiUmPar = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Count() == 1;
             var naoPossuiOutrasCartasRepetidas = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 1).Count() == 3;

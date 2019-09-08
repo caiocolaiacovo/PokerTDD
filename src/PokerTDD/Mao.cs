@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokerTDD
 {
     public abstract class Mao
     {
-        public IEnumerable<string> Cartas { get; protected set; }
-
         public static int ObterCartaSemNaipe(string carta)
         {
             var cartaSemNaipe = carta.Remove(carta.Length - 1, 1);
@@ -31,6 +30,19 @@ namespace PokerTDD
             return Convert.ToInt32(cartaSemNaipe);
         }
 
-        // public abstract int ObterMaiorCartaDaMao();
+        protected virtual int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador)
+        {
+            var valorDaMaiorCarta = 0;
+
+            foreach (var carta in maoDoJogador)
+            {
+                var valorDaCarta = ObterCartaSemNaipe(carta);
+
+                if (valorDaCarta > valorDaMaiorCarta)
+                    valorDaMaiorCarta = valorDaCarta;
+            }
+
+            return valorDaMaiorCarta;
+        }
     }
 }

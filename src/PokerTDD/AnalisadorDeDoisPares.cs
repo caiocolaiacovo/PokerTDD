@@ -3,11 +3,11 @@ using System.Linq;
 
 namespace PokerTDD
 {
-    public class DoisPares : Mao
+    public class AnalisadorDeDoisPares : Mao, IAnalisadorDeMao
     {
-        public static bool ValidarDoisPares(IEnumerable<string> maoDoJogador)
+        public static bool EhUmaMaoValida(IEnumerable<string> cartas)
         {
-            var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
+            var cartasSemNaipe = cartas.Select(ObterCartaSemNaipe);
 
             var possuiDoisPares = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Count() == 2;
 

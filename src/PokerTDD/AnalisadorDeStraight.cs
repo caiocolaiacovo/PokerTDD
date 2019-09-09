@@ -1,26 +1,16 @@
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace PokerTDD
 {
-    public class AnalisadorDeStraightFlush : AnalisadorDeMaoBase, IAnalisadorDeMao
+    public class AnalisadorDeStraight : AnalisadorDeMaoBase, IAnalisadorDeMao
     {
-        public int Ordem => 2;
-
-        public IAnalisadorDeMao AnalisadorDeFlush { get; set; }
-
-        public AnalisadorDeStraightFlush(IAnalisadorDeMao analisadorDeFlush)
-        {
-            AnalisadorDeFlush = analisadorDeFlush;
-        }
-
+        public int Ordem => 6;
+        
         public bool EhValida(IEnumerable<string> cartas)
         {
-            var flushValido = AnalisadorDeFlush.EhValida(cartas);
-
-            if (!flushValido)
-                return false;
-
             var cartasOrdenadas = cartas.Select(ObterCartaSemNaipe).OrderBy(c => c).ToList();
 
             var valor = cartasOrdenadas.First();
@@ -29,7 +19,7 @@ namespace PokerTDD
             {
                 if (valor != carta)
                     return false;
-                
+
                 valor++;
             }
 

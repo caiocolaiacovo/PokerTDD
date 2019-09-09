@@ -12,7 +12,7 @@ namespace PokerTDD
             AnalisadoresDeMao = OrdenarAnalisadores(analisadoresDeMao);
         }
 
-        private IEnumerable<IAnalisadorDeMao> OrdenarAnalisadores(IEnumerable<IAnalisadorDeMao> analisadoresDeMao)
+        private static IEnumerable<IAnalisadorDeMao> OrdenarAnalisadores(IEnumerable<IAnalisadorDeMao> analisadoresDeMao)
         {
             return analisadoresDeMao.OrderBy(a => a.Ordem);
         }

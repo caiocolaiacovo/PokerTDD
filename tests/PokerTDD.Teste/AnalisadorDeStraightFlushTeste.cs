@@ -1,14 +1,44 @@
+using System.Collections.Generic;
+using ExpectedObjects;
+using Moq;
 using Xunit;
 
 namespace PokerTDD.Teste
 {
     public class AnalisadorDeStraightFlushTeste
     {
+        private Mock<IAnalisadorDeMao> _analisadorDeStraight { get; private set; }
+        public Mock<IAnalisadorDeMao> _analisadorDeFlush { get; private set; }
         public AnalisadorDeStraightFlush _analisador { get; private set; }
 
         public AnalisadorDeStraightFlushTeste()
         {
-            _analisador = new AnalisadorDeStraightFlush();
+            _analisadorDeFlush = new Mock<IAnalisadorDeMao>();
+            _analisadorDeStraight = new Mock<IAnalisadorDeMao>();
+
+            _analisador = new AnalisadorDeStraightFlush(_analisadorDeFlush.Object, _analisadorDeStraight.Object);
+        }
+
+        [Fact]
+        public void Deve_criar_com_um_analisador_de_flush()
+        {
+            var analisadorEsperado = new
+            {
+                AnalisadorDeFlush = _analisadorDeFlush.Object
+            };
+
+            analisadorEsperado.ToExpectedObject().ShouldMatch(_analisador);
+        }
+
+        [Fact]
+        public void Deve_invocar_o_analisador_de_flush_ao_validar_mao()
+        {
+            var mao = new [] { "2C", "KS", "10C", "AD", "JH" };
+            _analisadorDeFlush.Setup(a => a.EhValida(mao)).Returns(true);
+
+            _analisador.EhValida(mao);
+
+            _analisadorDeFlush.Verify(a => a.EhValida(mao));
         }
 
         [Theory]
@@ -26,6 +56,7 @@ namespace PokerTDD.Teste
                 carta4,
                 carta5
             };
+            _analisadorDeFlush.Setup(a => a.EhValida(It.IsAny<IEnumerable<string>>())).Returns(true);
 
             var ehValida = _analisador.EhValida(mao);
 

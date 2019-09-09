@@ -4,10 +4,8 @@ namespace PokerTDD
 {
     public interface IAnalisadorDeMao
     {
-    }
-
-    public interface IAnalisadorDeMao2
-    {
-        Jogador ObterGanhador(Jogador jogador1, Jogador jogador2);
+        int Ordem { get; }
+        bool EhValida(IEnumerable<string> collection);
+        int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador);
     }
 }

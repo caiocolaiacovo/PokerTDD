@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace PokerTDD
 {
-    public abstract class Mao
+    public abstract class AnalisadorDeMaoBase
     {
         public static int ObterCartaSemNaipe(string carta)
         {
@@ -30,7 +29,7 @@ namespace PokerTDD
             return Convert.ToInt32(cartaSemNaipe);
         }
 
-        protected virtual int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador)
+        public virtual int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador)
         {
             var valorDaMaiorCarta = 0;
 

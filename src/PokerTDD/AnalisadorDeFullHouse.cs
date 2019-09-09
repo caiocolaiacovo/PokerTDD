@@ -3,29 +3,11 @@ using System.Linq;
 
 namespace PokerTDD
 {
-    public class AnalisadorDeFullHouse : Mao, IAnalisadorDeMao2
+    public class AnalisadorDeFullHouse : AnalisadorDeMaoBase, IAnalisadorDeMao
     {
-        public Jogador ObterGanhador(Jogador jogador1, Jogador jogador2)
-        {
-            var jogador1PossuiUmFullHouse = EhUmaMaoValida(jogador1.Cartas);
-            var jogador2PossuiUmFullHouse = EhUmaMaoValida(jogador2.Cartas);
+        public int Ordem => 4;
 
-            if (jogador1PossuiUmFullHouse && !jogador2PossuiUmFullHouse)
-                return jogador1;
-
-            if (jogador2PossuiUmFullHouse && !jogador1PossuiUmFullHouse)
-                return jogador2;
-
-            var maiorCartaDoJogador1 = ObterMaiorCartaDaMao(jogador1.Cartas);
-            var maiorCartaDoJogador2 = ObterMaiorCartaDaMao(jogador2.Cartas);
-
-            if (maiorCartaDoJogador1 > maiorCartaDoJogador2)
-                return jogador1;
-
-            return jogador2;
-        }
-
-        protected override int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador)
+        public override int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador)
         {
             var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);
 
@@ -34,7 +16,7 @@ namespace PokerTDD
             return trinca.First();
         }
 
-        private static bool EhUmaMaoValida(IEnumerable<string> cartas)
+        public bool EhValida(IEnumerable<string> cartas)
         {
             var cartasSemNaipe = cartas.Select(ObterCartaSemNaipe);
 

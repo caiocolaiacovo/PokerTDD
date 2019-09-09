@@ -3,26 +3,22 @@ using System.Linq;
 
 namespace PokerTDD
 {
-    public class AnalisadorDeRoyalFlush : Mao, IAnalisadorDeMao2
+    public class AnalisadorDeRoyalFlush : AnalisadorDeMaoBase, IAnalisadorDeMao
     {
-        public Jogador ObterGanhador(Jogador jogador1, Jogador jogador2)
+        public int Ordem => 1;
+
+        public IAnalisadorDeMao AnalisadorDeFlush { get; }
+
+        public AnalisadorDeRoyalFlush(IAnalisadorDeMao analisadorDeFlush)
         {
-            var jogador1PossuiUmRoyalFlush = EhUmaMaoValida(jogador1.Cartas);
-            var jogador2PossuiUmRoyalFlush = EhUmaMaoValida(jogador2.Cartas);
-
-            if (jogador1PossuiUmRoyalFlush && !jogador2PossuiUmRoyalFlush)
-                return jogador1;
-
-            if (jogador2PossuiUmRoyalFlush && !jogador1PossuiUmRoyalFlush)
-                return jogador2;
-
-            return null;
+            AnalisadorDeFlush = analisadorDeFlush;
         }
-        private bool EhUmaMaoValida(IEnumerable<string> cartas)
-        {
-            var cartasSaoDoMesmoNaipe = cartas.GroupBy(m => m.Last()).Count() == 1;
 
-            return cartasSaoDoMesmoNaipe && 
+        public bool EhValida(IEnumerable<string> cartas)
+        {
+            var flushValido = AnalisadorDeFlush.EhValida(cartas);
+
+            return flushValido && 
                 cartas.Any(m => m.Contains("10")) &&
                 cartas.Any(m => m.Contains("J")) &&
                 cartas.Any(m => m.Contains("Q")) &&

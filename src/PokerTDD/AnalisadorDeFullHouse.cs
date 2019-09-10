@@ -7,6 +7,13 @@ namespace PokerTDD
     {
         public int Ordem => 4;
 
+        public IAnalisadorDeMao AnalisadorDeTrinca { get; }
+
+        public AnalisadorDeFullHouse(IAnalisadorDeMao analisadorDeTrinca)
+        {
+            AnalisadorDeTrinca = analisadorDeTrinca;
+        }
+
         public override int ObterMaiorCartaDaMao(IEnumerable<string> maoDoJogador)
         {
             var cartasSemNaipe = maoDoJogador.Select(ObterCartaSemNaipe);

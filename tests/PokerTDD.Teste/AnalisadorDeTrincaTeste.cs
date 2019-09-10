@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace PokerTDD.Teste
 {
-    public class AnalisadorDeStraightTeste
+    public class AnalisadorDeTrincaTeste
     {
-        private AnalisadorDeStraight _analisador;
+        public AnalisadorDeTrinca _analisador { get; private set; }
 
-        public AnalisadorDeStraightTeste()
+        public AnalisadorDeTrincaTeste()
         {
-            _analisador = new AnalisadorDeStraight();
+            _analisador = new AnalisadorDeTrinca();
         }
 
         [Fact]
@@ -22,52 +19,53 @@ namespace PokerTDD.Teste
         }
 
         [Theory]
-        [InlineData("2C", "6D", "5H", "3S", "4C")]
-        [InlineData("9C", "8D", "7S", "6H", "10H")]
-        [InlineData("10D", "QC", "KD", "JH", "9C")]
-        [InlineData("7H", "JC", "8C", "9D", "10S")]
-        [InlineData("3S", "2D", "6C", "4H", "5S")]
+        [InlineData("3S", "2D", "3C", "7H", "3S")]
+        [InlineData("KH", "KD", "3C", "7H", "KS")]
+        [InlineData("AS", "2D", "3C", "AD", "AC")]
+        [InlineData("10S", "10D", "10C", "7H", "3S")]
+        [InlineData("AH", "AD", "AC", "QD", "JS")]
         public void Deve_ser_uma_mao_valida(
             string carta1, string carta2, string carta3, string carta4, string carta5
         )
         {
-            var mao = new[]
-            {
+            var mao = new[] { 
                 carta1,
                 carta2,
                 carta3,
                 carta4,
                 carta5
             };
+            
             var ehValida = _analisador.EhValida(mao);
 
             Assert.True(ehValida);
         }
 
         [Theory]
-        [InlineData("2C", "6D", "10H", "3S", "4C")]
-        [InlineData("9C", "8D", "AS", "6H", "10H")]
+        [InlineData("3S", "2D", "3C", "2H", "3S")]
+        [InlineData("KH", "KD", "3C", "3H", "KS")]
+        [InlineData("AS", "2D", "AC", "AD", "AC")]
         public void Nao_deve_ser_uma_mao_valida(
             string carta1, string carta2, string carta3, string carta4, string carta5
         )
         {
-            var mao = new[]
-            {
+            var mao = new[] { 
                 carta1,
                 carta2,
                 carta3,
                 carta4,
                 carta5
             };
+            
             var ehValida = _analisador.EhValida(mao);
 
             Assert.False(ehValida);
         }
 
         [Fact]
-        public void Deve_possuir_a_ordem_6()
+        public void Deve_possuir_a_ordem_7()
         {
-            const int ordemEsperada = 6;
+            const int ordemEsperada = 7;
 
             var ordem = _analisador.Ordem;
 

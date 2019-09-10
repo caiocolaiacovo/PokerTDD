@@ -11,6 +11,13 @@ namespace PokerTDD.Teste
             _analisador = new AnalisadorDeQuadra();
         }
 
+        [Fact]
+        public void Deve_ser_um_analisador_de_mao()
+        {
+            Assert.True(_analisador is IAnalisadorDeMao);
+            Assert.True(_analisador is AnalisadorDeMaoBase);
+        }
+
         [Theory]
         [InlineData("2D", "2H", "2C", "2S", "5D")]
         [InlineData("QD", "QH", "QC", "QS", "AD")]

@@ -7,11 +7,13 @@ namespace PokerTDD
     {
         public int Ordem => 2;
 
-        public IAnalisadorDeMao AnalisadorDeFlush { get; set; }
+        public IAnalisadorDeMao AnalisadorDeFlush { get; }
+        public IAnalisadorDeMao AnalisadorDeStraight { get; }
 
-        public AnalisadorDeStraightFlush(IAnalisadorDeMao analisadorDeFlush)
+        public AnalisadorDeStraightFlush(IAnalisadorDeMao analisadorDeFlush, IAnalisadorDeMao analisadorDeStraight)
         {
             AnalisadorDeFlush = analisadorDeFlush;
+            AnalisadorDeStraight = analisadorDeStraight;
         }
 
         public bool EhValida(IEnumerable<string> cartas)
@@ -21,19 +23,7 @@ namespace PokerTDD
             if (!flushValido)
                 return false;
 
-            var cartasOrdenadas = cartas.Select(ObterCartaSemNaipe).OrderBy(c => c).ToList();
-
-            var valor = cartasOrdenadas.First();
-
-            foreach (var carta in cartasOrdenadas)
-            {
-                if (valor != carta)
-                    return false;
-                
-                valor++;
-            }
-
-            return true;
+            return AnalisadorDeStraight.EhValida(cartas);
         }
     }
 }

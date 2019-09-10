@@ -19,6 +19,13 @@ namespace PokerTDD.Teste
         }
 
         [Fact]
+        public void Deve_ser_um_analisador_de_mao()
+        {
+            Assert.True(_analisador is IAnalisadorDeMao);
+            Assert.True(_analisador is AnalisadorDeMaoBase);
+        }
+
+        [Fact]
         public void Deve_criar_com_um_analisador_de_flush()
         {
             var analisadorEsperado = new {

@@ -1,14 +1,18 @@
+using Moq;
 using Xunit;
 
 namespace PokerTDD.Teste
 {
     public class AnalisadorDeFullHouseTeste
     {
+        public Mock<IAnalisadorDeMao> _analisadorDeTrinca { get; private set; }
         public AnalisadorDeFullHouse _analisador { get; private set; }
 
         public AnalisadorDeFullHouseTeste()
         {
-            _analisador = new AnalisadorDeFullHouse();
+            _analisadorDeTrinca = new Mock<IAnalisadorDeMao>();
+            
+            _analisador = new AnalisadorDeFullHouse(_analisadorDeTrinca.Object);
         }
 
         [Theory]

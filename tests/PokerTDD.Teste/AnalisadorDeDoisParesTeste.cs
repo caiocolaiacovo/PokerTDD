@@ -1,17 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System;
 using Xunit;
 
 namespace PokerTDD.Teste
 {
-    public class AnalisadorDeStraightTeste
+    public class AnalisadorDeDoisParesTeste
     {
-        private AnalisadorDeStraight _analisador;
+        public AnalisadorDeDoisPares _analisador { get; private set; }
 
-        public AnalisadorDeStraightTeste()
+        public AnalisadorDeDoisParesTeste()
         {
-            _analisador = new AnalisadorDeStraight();
+            _analisador = new AnalisadorDeDoisPares();
         }
 
         [Fact]
@@ -22,52 +20,54 @@ namespace PokerTDD.Teste
         }
 
         [Theory]
-        [InlineData("2C", "6D", "5H", "3S", "4C")]
-        [InlineData("9C", "8D", "7S", "6H", "10H")]
-        [InlineData("10D", "QC", "KD", "JH", "9C")]
-        [InlineData("7H", "JC", "8C", "9D", "10S")]
-        [InlineData("3S", "2D", "6C", "4H", "5S")]
+        [InlineData("2S", "2D", "10C", "10H", "3S")]
+        [InlineData("AH", "AD", "KC", "QD", "KS")]
+        [InlineData("7S", "7D", "KC", "AD", "AC")]
+        [InlineData("QD", "QS", "AC", "10H", "AS")]
+        [InlineData("QS", "KD", "KC", "QD", "2S")]
+        [InlineData("10S", "AS", "10C", "AD", "KC")]
         public void Deve_ser_uma_mao_valida(
             string carta1, string carta2, string carta3, string carta4, string carta5
         )
         {
-            var mao = new[]
-            {
+            var mao = new[] {
                 carta1,
                 carta2,
                 carta3,
                 carta4,
                 carta5
             };
+            
             var ehValida = _analisador.EhValida(mao);
 
             Assert.True(ehValida);
         }
 
         [Theory]
-        [InlineData("2C", "6D", "10H", "3S", "4C")]
-        [InlineData("9C", "8D", "AS", "6H", "10H")]
+        [InlineData("3H", "3D", "10C", "10H", "3S")]
+        [InlineData("AH", "AD", "KC", "QD", "6S")]
+        [InlineData("QH", "7D", "7C", "QC", "QD")]
         public void Nao_deve_ser_uma_mao_valida(
             string carta1, string carta2, string carta3, string carta4, string carta5
         )
         {
-            var mao = new[]
-            {
+            var mao = new[] {
                 carta1,
                 carta2,
                 carta3,
                 carta4,
                 carta5
             };
+            
             var ehValida = _analisador.EhValida(mao);
 
             Assert.False(ehValida);
         }
 
         [Fact]
-        public void Deve_possuir_a_ordem_6()
+        public void Deve_possuir_a_ordem_8()
         {
-            const int ordemEsperada = 6;
+            const int ordemEsperada = 8;
 
             var ordem = _analisador.Ordem;
 

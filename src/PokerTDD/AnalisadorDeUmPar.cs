@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace PokerTDD
 {
-    public class AnalisadorDeTrinca : AnalisadorDeMaoBase, IAnalisadorDeMao
+    public class AnalisadorDeUmPar : AnalisadorDeMaoBase, IAnalisadorDeMao
     {
-        public int Ordem => 7;
+        public int Ordem => 9;
 
         public bool EhValida(IEnumerable<string> cartas)
         {
@@ -15,10 +15,10 @@ namespace PokerTDD
                 
             var cartasSemNaipe = cartas.Select(ObterCartaSemNaipe);
 
-            var possuiUmaTrinca = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 3).Any();
-            var possuiUmPar = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Any();
+            var possuiUmPar = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 2).Count() == 1;
+            var naoPossuiOutrasCartasRepetidas = cartasSemNaipe.GroupBy(c => c).Where(g => g.Count() == 1).Count() == 3;
 
-            return possuiUmaTrinca && !possuiUmPar;
+            return possuiUmPar && naoPossuiOutrasCartasRepetidas;
         }
     }
 }

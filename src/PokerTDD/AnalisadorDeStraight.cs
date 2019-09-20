@@ -11,6 +11,9 @@ namespace PokerTDD
         
         public bool EhValida(IEnumerable<string> cartas)
         {
+            if (cartas == null || cartas.Count() == 0)
+                throw new ArgumentException("É obrigatório informar uma mão para validar");
+                
             var cartasOrdenadas = cartas.Select(ObterCartaSemNaipe).OrderBy(c => c).ToList();
 
             var valor = cartasOrdenadas.First();

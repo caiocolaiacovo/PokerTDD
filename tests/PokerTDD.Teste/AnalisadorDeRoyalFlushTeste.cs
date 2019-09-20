@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ExpectedObjects;
 using Moq;
@@ -88,6 +89,28 @@ namespace PokerTDD.Teste
             var ehValida = _analisador.EhValida(mao);
 
             Assert.False(ehValida);
+        }
+
+        [Fact]
+        public void Nao_deve_ser_uma_mao_valida_caso_seja_informada_uma_mao_vazia()
+        {
+            const string mensagemDeErroEsperada = "É obrigatório informar uma mão para validar";
+
+            void Acao() => _analisador.EhValida(new string[]{});
+
+            var mensagemDeErro = Assert.Throws<ArgumentException>(Acao).Message;
+            Assert.Equal(mensagemDeErroEsperada, mensagemDeErro);
+        }
+
+        [Fact]
+        public void Nao_deve_ser_uma_mao_valida_caso_seja_informada_uma_mao_nula()
+        {
+            const string mensagemDeErroEsperada = "É obrigatório informar uma mão para validar";
+
+            void Acao() => _analisador.EhValida(null);
+
+            var mensagemDeErro = Assert.Throws<ArgumentException>(Acao).Message;
+            Assert.Equal(mensagemDeErroEsperada, mensagemDeErro);
         }
 
         [Fact]
